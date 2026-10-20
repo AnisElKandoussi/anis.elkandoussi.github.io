@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Encodage des caractères (accents) -->
+  <meta charset="UTF-8">
+  <!-- Indispensable pour que le site s'affiche bien sur mobile (cours CSS > RWD) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prénom Nom — Portfolio cartographie</title>
+  <meta name="description" content="Portfolio de cartographie et webmapping : cartes interactives, analyses spatiales.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="entete">
+    <div class="conteneur entete__interieur">
+      <a href="index.html" class="logo">Prénom Nom</a>
+      <nav>
+        <ul class="menu">
+          <li><a href="#projets">Projets</a></li>
+          <li><a href="#apropos">À propos</a></li>
+          <li><a href="https://github.com/TON-PSEUDO" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== INTRODUCTION ===== -->
+    <section class="intro">
+      <div class="conteneur">
+        <h1>Cartographe &amp; apprenti développeur webmapping</h1>
+        <p>Je conçois des cartes interactives avec Leaflet, MapLibre et OpenLayers,
+           à partir de données ouvertes.</p>
+        <a href="#projets" class="bouton">Voir mes cartes</a>
+      </div>
+    </section>
+
+    <!-- ===== PROJETS =====
+         Chaque projet = une "carte" (card) avec :
+         - un lien vers la démo en ligne (dossier projets/...)
+         - un lien vers le code sur GitHub
+         Pour ajouter un projet : copie un bloc <article> et modifie-le. -->
+    <section id="projets" class="projets">
+      <div class="conteneur">
+        <h2>Projets</h2>
+
+        <div class="grille">
+          <article class="projet">
+            <img src="img/seismes.png" alt="Aperçu de la carte des séismes" class="projet__image">
+            <div class="projet__contenu">
+              <h3>Séismes dans le monde</h3>
+              <p>Données USGS en temps réel chargées avec <code>fetch</code>,
+                 cercles proportionnels à la magnitude.</p>
+              <ul class="etiquettes">
+                <li>Leaflet</li><li>GeoJSON</li><li>API</li>
+              </ul>
+              <div class="projet__liens">
+                <a href="projets/seismes/index.html" class="bouton">Voir la carte</a>
+                <a href="https://github.com/TON-PSEUDO/TON-PSEUDO.github.io/tree/main/projets/seismes"
+                   target="_blank" rel="noopener" class="bouton bouton--secondaire">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Projet à venir : exercice "Métro de Paris" du cours -->
+          <article class="projet projet--a-venir">
+            <div class="projet__contenu">
+              <h3>Métro de Paris</h3>
+              <p>Prochain projet : lignes et stations du métro avec leurs couleurs officielles.</p>
+              <ul class="etiquettes"><li>Leaflet</li><li>Styles</li></ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== À PROPOS ===== -->
+    <section id="apropos" class="apropos">
+      <div class="conteneur">
+        <h2>À propos</h2>
+        <p>Quelques lignes sur ton parcours, ta formation et le type de poste recherché.</p>
+        <p>Outils : QGIS, Python, HTML/CSS/JavaScript, Leaflet.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <p>© 2026 Prénom Nom — site hébergé sur GitHub Pages</p>
+    </div>
+  </footer>
+
+</body>
+</html>

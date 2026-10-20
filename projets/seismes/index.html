@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Séismes dans le monde — Portfolio</title>
+
+  <!-- Leaflet : feuille de style + script, chargés depuis un CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    /* La carte occupe tout l'écran sous un petit bandeau */
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; }
+    .bandeau {
+      height: 48px; display: flex; align-items: center; gap: 1rem;
+      padding: 0 1rem; background: #1f6f5c; color: #fff;
+    }
+    .bandeau a { color: #fff; }
+    #carte { height: calc(100% - 48px); }
+    .legende { background: #fff; padding: 0.5rem 0.8rem; border-radius: 6px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <div class="bandeau">
+    <a href="../../index.html">← Retour au portfolio</a>
+    <strong>Séismes des 7 derniers jours (USGS)</strong>
+  </div>
+
+  <!-- Leaflet dessine la carte dans cette div -->
+  <div id="carte"></div>
+
+  <script>
+    // 1. Créer la carte, centrée sur le monde
+    const carte = L.map('carte').setView([20, 0], 2);
+
+    // 2. Ajouter un fond de carte (tuiles OpenStreetMap)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; contributeurs OpenStreetMap'
+    }).addTo(carte);
+
+    // 3. Couleur selon la magnitude
+    function couleur(mag) {
+      if (mag >= 6) return '#b2182b';
+      if (mag >= 5) return '#ef8a62';
+      if (mag >= 4) return '#fddbc7';
+      return '#d1e5f0';
+    }
+
+    // 4. Charger les données GeoJSON de l'USGS avec fetch (cours AJAX - Fetch)
+    const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson';
+
+    fetch(url)
+      .then(reponse => reponse.json())
+      .then(donnees => {
+        L.geoJSON(donnees, {
+          // Chaque point devient un cercle proportionnel à la magnitude
+          pointToLayer: (entite, latlng) => L.circleMarker(latlng, {
+            radius: entite.properties.mag * 2.5,
+            fillColor: couleur(entite.properties.mag),
+            color: '#333',
+            weight: 0.5,
+            fillOpacity: 0.8
+          }),
+          // Une popup au clic
+          onEachFeature: (entite, couche) => {
+            const p = entite.properties;
+            const date = new Date(p.time).toLocaleString('fr-FR');
+            couche.bindPopup(`<strong>Magnitude ${p.mag}</strong><br>${p.place}<br>${date}`);
+          }
+        }).addTo(carte);
+      })
+      .catch(erreur => console.error('Erreur de chargement :', erreur));
+
+    // 5. Légende
+    const legende = L.control({ position: 'bottomright' });
+    legende.onAdd = function () {
+      const div = L.DomUtil.create('div', 'legende');
+      div.innerHTML = '<strong>Magnitude</strong><br>' +
+        [[6, '≥ 6'], [5, '5 – 6'], [4, '4 – 5'], [2.5, '2,5 – 4']]
+          .map(([m, txt]) => `<span style="color:${couleur(m)}">●</span> ${txt}`)
+          .join('<br>');
+      return div;
+    };
+    legende.addTo(carte);
+  </script>
+</body>
+</html>
