@@ -8,7 +8,7 @@ Site personnel présentant mes cartes interactives, hébergé sur GitHub Pages.
 
 | Projet | Technologies | Démo |
 |---|---|---|
-| Séismes dans le monde | Leaflet, GeoJSON, API USGS | [Voir](https://TON-PSEUDO.github.io/projets/seismes/) |
+| Séismes dans le monde | Leaflet, GeoJSON, API USGS | [Voir](https://aniselkandoussi.github.io/projets/seismes/) |
 
 ## Structure
 
