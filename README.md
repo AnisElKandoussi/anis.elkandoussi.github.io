@@ -2,7 +2,7 @@
 
 Site personnel présentant mes cartes interactives, hébergé sur GitHub Pages.
 
-👉 **Voir le site : https://anis.elkandoussi.github.io**
+👉 **Voir le site : https://aniselkandoussi.github.io**
 
 ## Projets
 
