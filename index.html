@@ -7,9 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anis El Kandoussi — Portfolio cartographie</title>
   <meta name="description" content="Portfolio de cartographie et webmapping : cartes interactives, analyses spatiales.">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.0.0/dist/maplibre-gl.css">
+  <script src="https://unpkg.com/maplibre-gl@5.0.0/dist/maplibre-gl.js"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div id="globe"></div>
 
   <!-- ===== EN-TÊTE ===== -->
   <header class="entete">
@@ -91,5 +94,35 @@
     </div>
   </footer>
 
+  <script>
+    // ----- Globe fond de page -----
+    const map = new maplibregl.Map({
+      container: 'globe',
+      style: 'https://demotiles.maplibre.org/style.json',
+      center: [0, 20],
+      zoom: 1.5,
+      pitch: 0,
+      bearing: 0,
+      interactive: false
+    });
+    //2. Afficher le globe en 3D
+    map.on('style.load', () => {
+      map.setProjection ({ type : 'globe'})
+    });
+    // 3. Quand la carte est chargée, on lance l'animation de rotation
+   const vitesseRotation = 0.1; // degrés par frame
+   
+  function tourner () {
+    const centre = map.getCenter();
+    centre.lng += vitesseRotation;
+    map.setCenter(centre);
+    requestAnimationFrame(tourner);
+  }
+
+  // 4. Démarrer l'animation
+  map.on('load', () => {
+    tourner();
+  });
+  </script>
 </body>
 </html>
